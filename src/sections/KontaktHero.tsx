@@ -19,6 +19,9 @@ export default function KontaktHero() {
           className="w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
+          decoding="async"
+          width="1920"
+          height="1080"
           aria-hidden="true"
         />
         {/* Dunkles Overlay für Textlesbarkeit */}
