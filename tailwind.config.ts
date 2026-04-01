@@ -61,14 +61,10 @@ const config: Config = {
       // TYPOGRAFIE
       // ──────────────────────────────────────────────
       fontFamily: {
-        // Display: Oswald — kraftvoll, maskulin, automotive
-        // Einsatz: h1, h2, Hero-Texte, Section-Headlines
-        display: ['Oswald', 'sans-serif'],
-        // Body: DM Sans — modern, gut lesbar, neutral
-        // Einsatz: Fließtext, Labels, Navigation, Buttons
-        body: ['DM Sans', 'sans-serif'],
-        // Fallback sans
-        sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Display + Body: Jost — geometrisch, Futura-ähnlich, modern
+        display: ['Jost', 'sans-serif'],
+        body: ['Jost', 'sans-serif'],
+        sans: ['Jost', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
 
       fontSize: {
