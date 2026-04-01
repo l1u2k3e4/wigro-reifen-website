@@ -100,6 +100,7 @@ export default function ChatWidget() {
   box-shadow: 0 6px 24px rgba(30, 45, 77, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  overflow: visible;
 }
 
 .wigro-chat .wg-fab:hover {
@@ -136,8 +137,9 @@ export default function ChatWidget() {
   inset: -4px;
   border-radius: 50%;
   border: 2px solid var(--wg-accent);
-  opacity: 0;
+  pointer-events: none;
   animation: wgPulse 2.5s ease-out infinite;
+  will-change: transform, opacity;
 }
 
 .wigro-chat .wg-fab.active::before {
@@ -146,8 +148,9 @@ export default function ChatWidget() {
 }
 
 @keyframes wgPulse {
-  0%   { transform: scale(1);    opacity: 0.6; }
-  100% { transform: scale(1.35); opacity: 0; }
+  0%   { transform: scale(1);    opacity: 0.7; }
+  70%  { transform: scale(1.25); opacity: 0.3; }
+  100% { transform: scale(1.4);  opacity: 0; }
 }
 
 /* ── Panel (Desktop) ── */
@@ -458,6 +461,7 @@ body.menu-open .wigro-chat {
     width: 56px;
     height: 56px;
     z-index: 2147483647;
+    overflow: visible;
   }
 
   .wigro-chat .wg-fab svg { width: 24px; height: 24px; }
