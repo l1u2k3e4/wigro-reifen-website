@@ -111,6 +111,18 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* GPU-Beschleunigung für animierte Elemente */
+  .animate-marquee {
+    will-change: transform;
+  }
+
+  /* Schnellere Marquee auf Mobile */
+  @media (max-width: 639px) {
+    .animate-marquee {
+      animation-duration: 20s !important;
+    }
+  }
 }
 
 /* ================================================================

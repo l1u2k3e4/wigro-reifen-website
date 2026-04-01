@@ -27,11 +27,11 @@ const sizeClasses = {
 
 const variantClasses = {
   primary:
-    'bg-brand-cta text-brand-ctaText font-semibold rounded-btn shadow-glow hover:bg-brand-ctaHover hover:shadow-glow-lg active:scale-[0.98] transition-all',
+    'bg-brand-cta text-brand-ctaText font-semibold rounded-btn shadow-glow hover:bg-brand-ctaHover hover:shadow-glow-lg active:scale-[0.98] transition-[background-color,box-shadow,transform] duration-200',
   secondary:
-    'border-2 border-brand-blue text-brand-blue font-semibold rounded-btn hover:bg-brand-blue hover:text-white active:scale-[0.98] transition-colors',
+    'border-2 border-brand-blue text-brand-blue font-semibold rounded-btn hover:bg-brand-blue hover:text-white active:scale-[0.98] transition-[background-color,color,transform] duration-200',
   ghost:
-    'bg-white/10 backdrop-blur-sm text-white font-semibold rounded-btn border border-white/30 hover:bg-white/20 hover:border-white/50 active:scale-[0.98] transition-all',
+    'bg-white/15 text-white font-semibold rounded-btn border border-white/30 hover:bg-white/25 hover:border-white/50 active:scale-[0.98] transition-[background-color,border-color,transform] duration-200',
 }
 
 export default function GlowButton({
@@ -48,7 +48,7 @@ export default function GlowButton({
   ariaLabel,
 }: GlowButtonProps) {
   const baseClasses = cn(
-    'inline-flex items-center justify-center font-body transition-all duration-200 select-none',
+    'inline-flex items-center justify-center font-body select-none',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2',
     'min-w-[44px] min-h-[44px]',
     sizeClasses[size],

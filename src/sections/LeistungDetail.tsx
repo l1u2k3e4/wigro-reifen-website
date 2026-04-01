@@ -124,27 +124,23 @@ export default function LeistungDetail({
           >
             <p className="text-brand-body text-base leading-relaxed">{intro}</p>
 
-            {/* Vorteile mit Stagger */}
-            <motion.ul
-              variants={containerVariants}
-              className="flex flex-col gap-2.5"
-            >
+            {/* Vorteile */}
+            <ul className="flex flex-col gap-2.5">
               {vorteile.map((vorteil) => (
-                <motion.li
+                <li
                   key={vorteil}
-                  variants={fadeInUp}
                   className="flex items-start gap-3"
                 >
                   <div className="w-5 h-5 rounded-full bg-brand-accentLight flex items-center justify-center shrink-0 mt-0.5">
                     <Check size={12} className="text-brand-accent" aria-hidden />
                   </div>
                   <span className="text-brand-body text-sm leading-relaxed">{vorteil}</span>
-                </motion.li>
+                </li>
               ))}
-            </motion.ul>
+            </ul>
 
             {/* CTA */}
-            <motion.div variants={fadeInUp}>
+            <div>
               <GlowButton
                 label={cta.label}
                 href={cta.href}
@@ -155,7 +151,7 @@ export default function LeistungDetail({
                 className="w-fit"
                 ariaLabel={cta.label}
               />
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

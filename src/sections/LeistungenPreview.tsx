@@ -25,29 +25,15 @@ const desktopVariants: Variants = {
   },
 }
 
-// Mobile: Alternierende Richtungen — ungerade von links, gerade von rechts
-const mobileLeftVariants: Variants = {
-  hidden: { opacity: 0, x: -40, scale: 0.95 },
+// Mobile: Einfache, schnelle Fade-Animationen für flüssiges Scrollen
+const mobileVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
-    x: 0,
-    scale: 1,
+    y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1], // Spring-ähnlicher Ease
-    },
-  },
-}
-
-const mobileRightVariants: Variants = {
-  hidden: { opacity: 0, x: 40, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 0.4,
+      ease: 'easeOut',
     },
   },
 }
@@ -106,17 +92,11 @@ export default function LeistungenPreview() {
           variants={containerVariants}
           className="mt-12 flex flex-col gap-4 sm:hidden"
         >
-          {COPY.leistungenOverview.items.map((item, index) => {
-            const mobileVariant = prefersReduced
-              ? reducedVariants
-              : index % 2 === 0
-                ? mobileLeftVariants
-                : mobileRightVariants
-
+          {COPY.leistungenOverview.items.map((item) => {
             return (
               <motion.div
                 key={item.title}
-                variants={mobileVariant}
+                variants={prefersReduced ? reducedVariants : mobileVariants}
               >
                 <ServiceCard
                   title={item.title}

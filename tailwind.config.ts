@@ -163,8 +163,8 @@ const config: Config = {
         },
         // Marquee für Partner-Karussell
         marquee: {
-          '0%':   { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-33.333%)' },
+          '0%':   { transform: 'translateX(0) translateZ(0)' },
+          '100%': { transform: 'translateX(-33.333%) translateZ(0)' },
         },
         // Mobile-Menü — slide-in von rechts
         slideInRight: {

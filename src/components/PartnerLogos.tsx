@@ -10,7 +10,7 @@ export default function PartnerLogos() {
   const tripled = [...logos, ...logos, ...logos]
 
   return (
-    <section className="section-surface overflow-hidden" aria-label="Unsere Markenpartner">
+    <section className="section-surface overflow-x-clip" aria-label="Unsere Markenpartner">
       <div className="container-content">
         <SectionHeading
           title={COPY.partner.headline}
@@ -26,7 +26,8 @@ export default function PartnerLogos() {
 
         {/* Scrolling track */}
         <div
-          className="flex items-center gap-8 md:gap-12 animate-marquee w-max"
+          className="flex items-center gap-8 md:gap-12 animate-marquee w-max will-change-transform"
+          style={{ backfaceVisibility: 'hidden' }}
           aria-hidden="true"
         >
           {tripled.map((partner, i) => (
@@ -38,8 +39,9 @@ export default function PartnerLogos() {
                 src={partner.src}
                 alt={partner.alt}
                 className="h-10 md:h-12 max-w-full object-contain"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
+                draggable="false"
               />
             </div>
           ))}
