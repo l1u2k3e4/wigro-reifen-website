@@ -128,7 +128,7 @@
            text-brand-white font-body font-semibold text-base
            px-6 py-3 rounded-btn
            shadow-glow hover:shadow-glow-lg
-           transition-all duration-200 ease-smooth
+           transition-[color,background-color,box-shadow,transform] duration-200 ease-smooth
            focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2
            active:scale-[0.98]
            select-none cursor-pointer;
@@ -143,7 +143,7 @@
            font-body font-semibold text-base
            px-6 py-3 rounded-btn
            border-2 border-brand-blue hover:border-brand-blue
-           transition-all duration-200 ease-smooth
+           transition-[color,background-color,border-color,transform] duration-200 ease-smooth
            focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2
            active:scale-[0.98]
            select-none cursor-pointer;
@@ -157,8 +157,7 @@
            text-brand-white font-body font-semibold text-base
            px-6 py-3 rounded-btn
            border border-white/30 hover:border-white/50
-           backdrop-blur-sm
-           transition-all duration-200 ease-smooth
+           transition-[color,background-color,border-color,transform] duration-200 ease-smooth
            active:scale-[0.98]
            select-none cursor-pointer;
     min-height: 44px;
@@ -169,7 +168,7 @@
   .card {
     @apply bg-brand-light rounded-card shadow-card
            border border-brand-border
-           transition-all duration-200 ease-smooth;
+           transition-[box-shadow,transform] duration-200 ease-smooth;
   }
 
   .card-hover {
@@ -213,8 +212,7 @@
     @apply inline-flex items-center gap-1.5
            bg-white/20 text-brand-white
            font-body font-medium text-sm
-           px-3 py-1 rounded-badge
-           backdrop-blur-sm;
+           px-3 py-1 rounded-badge;
   }
 
   /* ── Callout-Box ────────────────────────────────────────────── */

@@ -40,7 +40,7 @@ export default function StickyCTABar() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="sticky-cta lg:hidden bg-white/95 backdrop-blur-md border-t border-brand-border shadow-lg"
+          className="sticky-cta lg:hidden bg-white border-t border-brand-border shadow-lg"
           role="complementary"
           aria-label="Schnellkontakt"
         >

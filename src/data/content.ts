@@ -307,9 +307,9 @@ export const COPY = {
       { tag: 'Montag – Freitag', zeiten: '08:00 – 12:30 Uhr & 13:00 – 17:00 Uhr' },
     ],
     parkplatz: 'Kostenlose Parkplätze direkt vor dem Betrieb',
-    googleMapsUrl: 'https://www.google.com/maps/place/Wigro+Reifen/@51.4447147,7.318914,16z',
+    googleMapsUrl: 'https://www.google.com/maps/place/Wigro+Reifen/@51.444711,7.321489,1459m/data=!3m2!1e3!5s0x47b921e58b259341:0x96779a4b5498a90a!4m16!1m9!3m8!1s0x47b921e58b3195b3:0xe1997beaafe19292!2sWigro+Reifen!8m2!3d51.4447114!4d7.3214889!9m1!1b1!16s%2Fg%2F1ttpf_6s!3m5!1s0x47b921e58b3195b3:0xe1997beaafe19292!8m2!3d51.4447114!4d7.3214889!16s%2Fg%2F1ttpf_6s?hl=de-DE&entry=ttu&g_ep=EgoyMDI2MDMyOS4wIKXMDSoASAFQAw%3D%3D',
     googleMapsEmbed: 'https://maps.google.com/maps?q=Wigro+Reifen,+Cörmannstr.+25,+58455+Witten&z=16&output=embed',
-    routenplanerUrl: 'https://www.google.com/maps/dir/?api=1&destination=51.4447114,7.3214889',
+    routenplanerUrl: 'https://www.google.com/maps/place/Wigro+Reifen/@51.444711,7.321489,1459m/data=!3m2!1e3!5s0x47b921e58b259341:0x96779a4b5498a90a!4m16!1m9!3m8!1s0x47b921e58b3195b3:0xe1997beaafe19292!2sWigro+Reifen!8m2!3d51.4447114!4d7.3214889!9m1!1b1!16s%2Fg%2F1ttpf_6s!3m5!1s0x47b921e58b3195b3:0xe1997beaafe19292!8m2!3d51.4447114!4d7.3214889!16s%2Fg%2F1ttpf_6s?hl=de-DE&entry=ttu&g_ep=EgoyMDI2MDMyOS4wIKXMDSoASAFQAw%3D%3D',
   },
 
   ctaSection: {
@@ -491,7 +491,7 @@ Was uns ausmacht, ist nicht die Größe, sondern der persönliche Kontakt. Bei u
 
 Mit 4,8 von 5 Sternen bei über 300 Google-Bewertungen sind wir stolz auf das Vertrauen, das uns die Wittenerin und Wittener entgegenbringen. Dieses Vertrauen verpflichtet uns täglich.`,
       image: {
-        src: '/Logo Sonstige/Team.02.webp',
+        src: '/Logo Sonstige/Team.01.webp',
         alt: 'Das WIGRO Team in der Werkstatt — Reifenhändler Witten',
       },
     },

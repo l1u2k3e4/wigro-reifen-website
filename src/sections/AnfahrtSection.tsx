@@ -2,11 +2,12 @@
 // Anfahrt auf Startseite — Zweispaltig: Links Kontaktinfos, Rechts Google Maps (direkt geladen)
 
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Clock, Mail, ExternalLink } from 'lucide-react'
+import { MapPin, Phone, Clock, Mail, Navigation } from 'lucide-react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'
 import GlowButton from '@/components/ui/GlowButton'
 import { fadeInUp } from '@/lib/animations'
+import { openMapsRoute } from '@/lib/maps'
 
 export default function AnfahrtSection() {
   return (
@@ -113,12 +114,12 @@ export default function AnfahrtSection() {
             {/* Route planen Button */}
             <GlowButton
               label="Route planen"
-              href={COPY.anfahrt.routenplanerUrl}
+              onClick={openMapsRoute}
               variant="secondary"
               size="md"
-              icon={ExternalLink}
+              icon={Navigation}
               iconPosition="right"
-              ariaLabel="Route zu WIGRO Reifen in Google Maps planen"
+              ariaLabel="Route zu WIGRO Reifen planen"
             />
           </motion.div>
         </div>
