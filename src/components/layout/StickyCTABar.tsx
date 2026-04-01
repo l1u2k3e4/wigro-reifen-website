@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Phone, MessageCircle } from 'lucide-react'
 import { COPY } from '@/data/content'
-import { slideUp } from '@/lib/animations'
 
 function debounce<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
   let timer: ReturnType<typeof setTimeout>
@@ -36,10 +35,10 @@ export default function StickyCTABar() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          variants={slideUp}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           className="sticky-cta lg:hidden bg-white border-t border-brand-border shadow-lg"
           role="complementary"
           aria-label="Schnellkontakt"

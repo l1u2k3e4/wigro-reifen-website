@@ -249,10 +249,10 @@
   .sticky-cta {
     @apply fixed bottom-0 left-0 right-0 z-nav
            flex items-center justify-between
-           px-4 py-3
+           px-4 pt-3
            gap-3;
-    /* Safe Area für iPhones mit Home Indicator */
-    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    /* Safe Area für iPhones mit Home Indicator — NUR bottom */
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }
 
   /* ── Tabellen ───────────────────────────────────────────────── */
