@@ -1,0 +1,353 @@
+/* ================================================================
+   WIGRO Reifen — Global CSS
+   Tailwind Directives + Base Styles + Custom Layers
+   ================================================================ */
+
+/* Google Fonts — Oswald (Display) + DM Sans (Body)
+   Preconnect für optimale Ladezeit */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+/* ================================================================
+   TAILWIND DIRECTIVES
+   ================================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   BASE LAYER — Reset & Grundstile
+   ================================================================ */
+
+@layer base {
+  /* Smooth Scroll für Anchor-Links */
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Body — DM Sans als Standard, Antialiasing */
+  body {
+    @apply font-body text-brand-body bg-brand-bg antialiased;
+    font-size: 1rem;
+    line-height: 1.625;
+  }
+
+  /* Typografie-Hierarchie */
+  h1, h2, h3 {
+    @apply font-display font-bold text-brand-heading leading-tight tracking-tight;
+  }
+
+  h4, h5, h6 {
+    @apply font-body font-semibold text-brand-heading leading-snug;
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
+  h5 { @apply text-lg md:text-xl; }
+  h6 { @apply text-base md:text-lg; }
+
+  /* Fließtext */
+  p {
+    @apply text-base text-brand-body leading-relaxed;
+  }
+
+  /* Links */
+  a {
+    @apply text-brand-accent transition-colors duration-200;
+  }
+  a:hover {
+    @apply text-brand-accentHover;
+  }
+
+  /* Focus-Ring — Accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-accent ring-offset-2;
+  }
+
+  /* Bilder */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Listen */
+  ul, ol {
+    @apply pl-0 list-none;
+  }
+
+  /* Horizontal Rule */
+  hr {
+    @apply border-brand-border;
+  }
+
+  /* Selektion */
+  ::selection {
+    @apply bg-brand-accentLight text-brand-heading;
+  }
+
+  /* Scrollbar — subtil, passend zum Brand */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-brand-surface;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-brand-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-muted;
+  }
+
+  /* Reduced Motion — Animationen deaktivieren falls gewünscht */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ================================================================
+   COMPONENTS LAYER — Wiederverwendbare Klassen
+   ================================================================ */
+
+@layer components {
+
+  /* ── Buttons ───────────────────────────────────────────────── */
+
+  /* Primär-Button (GlowButton) — Navy-Blau CTA */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand-blue hover:bg-brand-blueLight
+           text-brand-white font-body font-semibold text-base
+           px-6 py-3 rounded-btn
+           shadow-glow hover:shadow-glow-lg
+           transition-all duration-200 ease-smooth
+           focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2
+           active:scale-[0.98]
+           select-none cursor-pointer;
+    min-height: 44px; /* Touch-Target iOS */
+  }
+
+  /* Sekundär-Button — Outline-Stil */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent hover:bg-brand-blue
+           text-brand-blue hover:text-white
+           font-body font-semibold text-base
+           px-6 py-3 rounded-btn
+           border-2 border-brand-blue hover:border-brand-blue
+           transition-all duration-200 ease-smooth
+           focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2
+           active:scale-[0.98]
+           select-none cursor-pointer;
+    min-height: 44px;
+  }
+
+  /* Ghost-Button — für sekundäre Aktionen auf dunklen Hintergründen */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white/10 hover:bg-white/20
+           text-brand-white font-body font-semibold text-base
+           px-6 py-3 rounded-btn
+           border border-white/30 hover:border-white/50
+           backdrop-blur-sm
+           transition-all duration-200 ease-smooth
+           active:scale-[0.98]
+           select-none cursor-pointer;
+    min-height: 44px;
+  }
+
+  /* ── Cards ─────────────────────────────────────────────────── */
+
+  .card {
+    @apply bg-brand-light rounded-card shadow-card
+           border border-brand-border
+           transition-all duration-200 ease-smooth;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  /* ── Sections ──────────────────────────────────────────────── */
+
+  /* Standard Section — weißer Hintergrund */
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  /* Alternierende Section — leichtes Grün */
+  .section-surface {
+    @apply py-16 md:py-24 bg-brand-surface;
+  }
+
+  /* Content-Container — zentriert mit max-width */
+  .container-content {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  /* Schmaler Container (Kontakt, Impressum, Datenschutz) */
+  .container-narrow {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 800px;
+  }
+
+  /* ── Badges & Tags ─────────────────────────────────────────── */
+
+  .badge {
+    @apply inline-flex items-center gap-1.5
+           bg-brand-accentLight text-brand-accentHover
+           font-body font-medium text-sm
+           px-3 py-1 rounded-badge;
+  }
+
+  .badge-white {
+    @apply inline-flex items-center gap-1.5
+           bg-white/20 text-brand-white
+           font-body font-medium text-sm
+           px-3 py-1 rounded-badge
+           backdrop-blur-sm;
+  }
+
+  /* ── Callout-Box ────────────────────────────────────────────── */
+
+  .callout {
+    @apply bg-brand-callout border border-brand-calloutBorder
+           rounded-card p-6;
+  }
+
+  /* ── Section-Headline Pattern ──────────────────────────────── */
+
+  .section-headline {
+    @apply font-display font-bold text-brand-heading
+           text-3xl md:text-4xl mb-4;
+  }
+
+  .section-subline {
+    @apply font-body text-brand-body text-lg leading-relaxed
+           max-w-2xl;
+  }
+
+  /* ── Trust-Signal ───────────────────────────────────────────── */
+
+  .trust-chip {
+    @apply inline-flex items-center gap-2
+           bg-brand-surface text-brand-body
+           font-body text-sm font-medium
+           px-4 py-2 rounded-full
+           border border-brand-border;
+  }
+
+  /* ── Sticky CTA-Bar (Mobile) ────────────────────────────────── */
+
+  .sticky-cta {
+    @apply fixed bottom-0 left-0 right-0 z-nav
+           flex items-center justify-between
+           px-4 py-3
+           gap-3;
+    /* Safe Area für iPhones mit Home Indicator */
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  /* ── Tabellen ───────────────────────────────────────────────── */
+
+  .table-wigro {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .table-wigro thead tr {
+    @apply bg-brand-tableHeader;
+  }
+
+  .table-wigro th {
+    @apply font-body font-semibold text-brand-heading
+           px-4 py-3 text-left border-b border-brand-calloutBorder;
+  }
+
+  .table-wigro td {
+    @apply font-body text-brand-body
+           px-4 py-3 border-b border-brand-border;
+  }
+
+  .table-wigro tbody tr:hover {
+    @apply bg-brand-surface;
+  }
+
+  /* ── Grid-Layouts ───────────────────────────────────────────── */
+
+  .grid-services {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+           gap-6 md:gap-8;
+  }
+
+  .grid-team {
+    @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4
+           gap-6 md:gap-8;
+  }
+}
+
+/* ================================================================
+   UTILITIES LAYER — Spezifische Helfer
+   ================================================================ */
+
+@layer utilities {
+
+  /* Text-Clamp für Fließtext-Breite */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Verhindert FOUT bei Google Fonts */
+  .font-display-swap {
+    font-display: swap;
+  }
+
+  /* Glassmorphism — für Overlay-Elemente */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  /* Gradient — WIGRO Blau */
+  .gradient-brand {
+    background: linear-gradient(135deg, #1F2D4B 0%, #2B4065 100%);
+  }
+
+  /* Gradient — dunkel für Hero-Overlays */
+  .gradient-dark {
+    background: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.4) 0%,
+      rgb(0 0 0 / 0.65) 100%
+    );
+  }
+
+  /* Tap-Delay entfernen — mobiles Web */
+  .no-tap-delay {
+    touch-action: manipulation;
+  }
+
+  /* Aspect Ratio für Werkstatt-Bilder */
+  .aspect-workshop {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Stagger-Verzögerungen für Scroll-Animationen (Framer Motion Ergänzung) */
+  .stagger-1 { animation-delay: 0ms; }
+  .stagger-2 { animation-delay: 80ms; }
+  .stagger-3 { animation-delay: 160ms; }
+  .stagger-4 { animation-delay: 240ms; }
+  .stagger-5 { animation-delay: 320ms; }
+  .stagger-6 { animation-delay: 400ms; }
+}
