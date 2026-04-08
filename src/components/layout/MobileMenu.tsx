@@ -21,15 +21,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     onClose()
   }, [location.pathname, onClose])
 
-  // Body-Scroll sperren wenn Menü offen
+  // Body-Scroll sperren wenn Menü offen (deferred via rAF, damit Framer Motion's erster Frame nicht blockiert wird)
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
-      document.body.classList.add('menu-open')
-    } else {
-      document.body.style.overflow = ''
-      document.body.classList.remove('menu-open')
+      const rafId = requestAnimationFrame(() => {
+        document.body.style.overflow = 'hidden'
+        document.body.classList.add('menu-open')
+      })
+      return () => cancelAnimationFrame(rafId)
     }
+    document.body.style.overflow = ''
+    document.body.classList.remove('menu-open')
     return () => {
       document.body.style.overflow = ''
       document.body.classList.remove('menu-open')
@@ -59,7 +61,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-0 right-0 h-full z-modal bg-brand-bg shadow-float flex flex-col"
+            className="fixed top-0 right-0 h-full z-modal bg-brand-bg shadow-float flex flex-col transform-gpu will-change-transform"
             style={{ width: 'min(320px, 80vw)' }}
             role="dialog"
             aria-modal="true"

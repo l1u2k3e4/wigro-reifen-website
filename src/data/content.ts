@@ -13,6 +13,10 @@
 // - Öffnungszeiten mit Mario verifizieren (aktuell: Mo–Fr 08:00–12:30 & 13:00–17:00)
 // - Kontaktformular Backend einbinden (aktuell: simuliert)
 
+// Bildpfade mit Vite base-URL prefixen (nötig für GitHub Pages Subdirectory-Hosting)
+const base = import.meta.env.BASE_URL
+const asset = (path: string) => `${base}${path.startsWith('/') ? path.slice(1) : path}`
+
 export const COPY = {
 
   // ============================================================
@@ -74,7 +78,7 @@ export const COPY = {
   nav: {
     logo: {
       alt: 'WIGRO Reifen Witten — Räder und Reifen',
-      src: '/Logo Sonstige/Logo.webp',
+      src: asset('/Logo Sonstige/Logo.webp'),
     },
     links: [
       { label: 'Startseite', href: '/' },
@@ -107,7 +111,7 @@ export const COPY = {
     },
     trustSignal: '4,8 / 5 — über 300 zufriedene Kunden',
     image: {
-      src: '/Logo Sonstige/Wigro_header.jpg',
+      src: asset('/Logo Sonstige/Wigro_header.jpg'),
       alt: 'WIGRO Reifen Werkstatt in Witten — professioneller Reifenwechsel',
     },
   },
@@ -273,11 +277,11 @@ export const COPY = {
     headline: 'Unsere Markenpartner',
     subline: 'Wir führen und montieren Reifen der führenden Hersteller.',
     items: [
-      { name: 'Hankook', src: '/Bilder Reifenmarken/Hankook_logo.webp', alt: 'Hankook Reifen Partner WIGRO Witten' },
-      { name: 'Michelin', src: '/Bilder Reifenmarken/Michelin_Logo.svg.webp', alt: 'Michelin Reifen Partner WIGRO Witten' },
-      { name: 'Continental', src: '/Bilder Reifenmarken/continental-logo.webp', alt: 'Continental Reifen Partner WIGRO Witten' },
-      { name: 'Nexen', src: '/Bilder Reifenmarken/NEXEN TIRE_Portrait_Emphasis on the symbol.webp', alt: 'Nexen Reifen Partner WIGRO Witten' },
-      { name: 'Nokian', src: '/Bilder Reifenmarken/Nokian_Tyres-logo.webp', alt: 'Nokian Reifen Partner WIGRO Witten' },
+      { name: 'Hankook', src: asset('/Bilder Reifenmarken/Hankook_logo.webp'), alt: 'Hankook Reifen Partner WIGRO Witten' },
+      { name: 'Michelin', src: asset('/Bilder Reifenmarken/Michelin_Logo.svg.webp'), alt: 'Michelin Reifen Partner WIGRO Witten' },
+      { name: 'Continental', src: asset('/Bilder Reifenmarken/continental-logo.webp'), alt: 'Continental Reifen Partner WIGRO Witten' },
+      { name: 'Nexen', src: asset('/Bilder Reifenmarken/NEXEN TIRE_Portrait_Emphasis on the symbol.webp'), alt: 'Nexen Reifen Partner WIGRO Witten' },
+      { name: 'Nokian', src: asset('/Bilder Reifenmarken/Nokian_Tyres-logo.webp'), alt: 'Nokian Reifen Partner WIGRO Witten' },
     ],
   },
 
@@ -286,7 +290,7 @@ export const COPY = {
     subline:
       '7 Profis, ein Ziel: Ihr Auto fährt sicher. Lernen Sie die Menschen kennen, die sich jeden Tag um Ihre Reifen kümmern.',
     image: {
-      src: '/Logo Sonstige/Team.01.webp',
+      src: asset('/Logo Sonstige/Team.01.webp'),
       alt: 'Das Team von WIGRO Reifen Witten',
     },
     cta: {
@@ -491,7 +495,7 @@ Was uns ausmacht, ist nicht die Größe, sondern der persönliche Kontakt. Bei u
 
 Mit 4,8 von 5 Sternen bei über 300 Google-Bewertungen sind wir stolz auf das Vertrauen, das uns die Wittenerin und Wittener entgegenbringen. Dieses Vertrauen verpflichtet uns täglich.`,
       image: {
-        src: '/Logo Sonstige/Team.01.webp',
+        src: asset('/Logo Sonstige/Team.01.webp'),
         alt: 'Das WIGRO Team in der Werkstatt — Reifenhändler Witten',
       },
     },
@@ -500,49 +504,49 @@ Mit 4,8 von 5 Sternen bei über 300 Google-Bewertungen sind wir stolz auf das Ve
         name: 'Mario Rampérez y Carrasco',
         rolle: 'Inhaber & Geschäftsführer',
         beschreibung: 'Mario ist das Herz von WIGRO. Er kennt jeden Kunden beim Namen und sorgt dafür, dass alles reibungslos läuft.',
-        bild: '/Mitarbeiter Bilder/Mario.webp',
+        bild: asset('/Mitarbeiter Bilder/Mario.webp'),
         bildAlt: 'Mario Rampérez y Carrasco — Inhaber WIGRO Reifen Witten',
       },
       {
         name: 'Denise',
         rolle: 'Kundenberatung & Empfang',
         beschreibung: 'Denise ist Ihre erste Ansprechpartnerin — freundlich, kompetent und immer mit einer Lösung parat.',
-        bild: '/Mitarbeiter Bilder/Denise.webp',
+        bild: asset('/Mitarbeiter Bilder/Denise.webp'),
         bildAlt: 'Denise — Kundenberatung WIGRO Reifen Witten',
       },
       {
         name: 'Igor',
         rolle: 'Werkstattleitung',
         beschreibung: 'Igor leitet die Werkstatt mit ruhiger Hand. Er sorgt dafür, dass jede Montage präzise und sicher erledigt wird.',
-        bild: '/Mitarbeiter Bilder/Igor.webp',
+        bild: asset('/Mitarbeiter Bilder/Igor.webp'),
         bildAlt: 'Igor — Werkstattleitung WIGRO Reifen Witten',
       },
       {
         name: 'Lukasz',
         rolle: 'Reifenmonteur',
         beschreibung: 'Lukasz ist einer unserer erfahrenen Monteure. Schnell, zuverlässig und immer mit dem richtigen Anzugsmoment.',
-        bild: '/Mitarbeiter Bilder/Lukasz.webp',
+        bild: asset('/Mitarbeiter Bilder/Lukasz.webp'),
         bildAlt: 'Lukasz — Reifenmonteur WIGRO Reifen Witten',
       },
       {
         name: 'Max',
         rolle: 'Reifenmonteur',
         beschreibung: 'Max kümmert sich mit Sorgfalt um jedes Fahrzeug — egal ob Alufelgen oder Stahlfelgen.',
-        bild: '/Mitarbeiter Bilder/MaxM.webp',
+        bild: asset('/Mitarbeiter Bilder/MaxM.webp'),
         bildAlt: 'Max — Reifenmonteur WIGRO Reifen Witten',
       },
       {
         name: 'Pawlo',
         rolle: 'Reifenmonteur',
         beschreibung: 'Pawlo komplettiert unser Werkstatt-Team. Mit Pawlo läuft die Montage reibungslos — auch in der Hochsaison.',
-        bild: '/Mitarbeiter Bilder/Pawlo.webp',
+        bild: asset('/Mitarbeiter Bilder/Pawlo.webp'),
         bildAlt: 'Pawlo — Reifenmonteur WIGRO Reifen Witten',
       },
       {
         name: 'Damian',
         rolle: 'Reifenmonteur',
         beschreibung: 'Damian packt mit an — ob Reifenwechsel, Montage oder Auswuchtung, er arbeitet schnell und sauber.',
-        bild: '/Mitarbeiter Bilder/Damian.webp',
+        bild: asset('/Mitarbeiter Bilder/Damian.webp'),
         bildAlt: 'Damian — Reifenmonteur WIGRO Reifen Witten',
       },
     ],
@@ -554,19 +558,19 @@ Mit 4,8 von 5 Sternen bei über 300 Google-Bewertungen sind wir stolz auf das Ve
       headline: 'Unsere Werkstatt — modern und aufgeräumt',
       bilder: [
         {
-          src: '/Logo Sonstige/Werkstatt.01.webp',
+          src: asset('/Logo Sonstige/Werkstatt.01.webp'),
           alt: 'WIGRO Werkstatt Witten — Reifenmontage',
         },
         {
-          src: '/Logo Sonstige/Werkstatt.02.webp',
+          src: asset('/Logo Sonstige/Werkstatt.02.webp'),
           alt: 'WIGRO Werkstatt Witten — professionelle Ausrüstung',
         },
         {
-          src: '/Logo Sonstige/Werkstatt.03.webp',
+          src: asset('/Logo Sonstige/Werkstatt.03.webp'),
           alt: 'WIGRO Reifen Werkstatt Witten — Innenansicht',
         },
         {
-          src: '/Logo Sonstige/Theke.webp',
+          src: asset('/Logo Sonstige/Theke.webp'),
           alt: 'WIGRO Empfang und Beratung Witten',
         },
       ],

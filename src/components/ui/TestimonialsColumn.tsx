@@ -78,7 +78,7 @@ export function TestimonialsColumn({
   return (
     <div ref={containerRef} className={cn('overflow-hidden', className)}>
       <div
-        className="flex flex-col gap-6 pb-6 animate-scroll-up"
+        className="flex flex-col gap-6 pb-6 animate-scroll-up will-change-transform"
         style={{
           '--scroll-duration': `${duration}s`,
           animationPlayState: isVisible ? 'running' : 'paused',

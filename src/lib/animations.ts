@@ -51,8 +51,17 @@ export const staggerContainer: Variants = isMobile
 
 export const slideInRight: Variants = isMobile
   ? {
-      ...noAnim,
-      exit: { opacity: 0, x: '100%', transition: { duration: 0.2, ease: 'easeIn' } },
+      hidden: { x: '100%', opacity: 0 },
+      visible: {
+        x: 0,
+        opacity: 1,
+        transition: { duration: 0.2, ease: EASE },
+      },
+      exit: {
+        x: '100%',
+        opacity: 0,
+        transition: { duration: 0.2, ease: 'easeIn' },
+      },
     }
   : {
       hidden: { opacity: 0, x: '100%' },
@@ -64,7 +73,7 @@ export const slideInRight: Variants = isMobile
       exit: {
         opacity: 0,
         x: '100%',
-        transition: { duration: 0.18, ease: 'easeIn' },
+        transition: { duration: 0.2, ease: 'easeIn' },
       },
     }
 
