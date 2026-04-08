@@ -158,7 +158,7 @@ export default function ContactForm() {
           aria-invalid={!!errors.name}
         />
         {errors.name && (
-          <p id="contact-name-error" className="text-xs text-red-500 flex items-center gap-1" role="alert">
+          <p id="contact-name-error" className="text-xs text-red-500 flex items-center gap-1 animate-fade-in" role="alert">
             <AlertCircle size={12} aria-hidden /> {errors.name}
           </p>
         )}
@@ -187,7 +187,7 @@ export default function ContactForm() {
           aria-invalid={!!errors.email}
         />
         {errors.email && (
-          <p id="contact-email-error" className="text-xs text-red-500 flex items-center gap-1" role="alert">
+          <p id="contact-email-error" className="text-xs text-red-500 flex items-center gap-1 animate-fade-in" role="alert">
             <AlertCircle size={12} aria-hidden /> {errors.email}
           </p>
         )}
@@ -232,7 +232,7 @@ export default function ContactForm() {
           aria-invalid={!!errors.nachricht}
         />
         {errors.nachricht && (
-          <p id="contact-nachricht-error" className="text-xs text-red-500 flex items-center gap-1" role="alert">
+          <p id="contact-nachricht-error" className="text-xs text-red-500 flex items-center gap-1 animate-fade-in" role="alert">
             <AlertCircle size={12} aria-hidden /> {errors.nachricht}
           </p>
         )}
@@ -259,7 +259,7 @@ export default function ContactForm() {
           </span>
         </label>
         {errors.dsgvo && (
-          <p id="contact-dsgvo-error" className="text-xs text-red-500 flex items-center gap-1 ml-7" role="alert">
+          <p id="contact-dsgvo-error" className="text-xs text-red-500 flex items-center gap-1 ml-7 animate-fade-in" role="alert">
             <AlertCircle size={12} aria-hidden /> {errors.dsgvo}
           </p>
         )}
@@ -267,7 +267,7 @@ export default function ContactForm() {
 
       {/* Error Feedback */}
       {status === 'error' && (
-        <div className="flex items-start gap-2 p-3 rounded-badge bg-red-50 border border-red-200" role="alert">
+        <div className="flex items-start gap-2 p-3 rounded-badge bg-red-50 border border-red-200 animate-fade-in" role="alert">
           <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" aria-hidden />
           <p className="text-xs text-red-700">{COPY.kontakt.formular.fehler}</p>
         </div>

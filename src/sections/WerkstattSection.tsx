@@ -35,7 +35,7 @@ export default function WerkstattSection() {
                 <img
                   src={bild.src}
                   alt={bild.alt}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                   decoding="async"
                 />

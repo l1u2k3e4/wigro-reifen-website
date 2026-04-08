@@ -55,15 +55,20 @@ export default function FAQItem({
         {isOpen && (
           <motion.div
             key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="grid overflow-hidden"
+            style={{
+              gridTemplateRows: '1fr',
+            }}
           >
-            <p className="px-5 pb-5 text-brand-body text-sm leading-relaxed border-t border-brand-border pt-4">
-              {answer}
-            </p>
+            <div className="min-h-0">
+              <p className="px-5 pb-5 text-brand-body text-sm leading-relaxed border-t border-brand-border pt-4">
+                {answer}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

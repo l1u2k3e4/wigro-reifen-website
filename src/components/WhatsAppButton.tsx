@@ -15,9 +15,9 @@ export default function WhatsAppButton() {
       aria-label="WhatsApp schreiben"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 5, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay: 1.5, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Tooltip */}
       <span

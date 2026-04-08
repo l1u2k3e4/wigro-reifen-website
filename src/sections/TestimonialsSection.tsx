@@ -43,9 +43,9 @@ export default function TestimonialsSection() {
       <div className="container-content">
         {/* Header with overall rating */}
         <motion.div
-          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 12, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.3, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="flex flex-col items-center justify-center max-w-xl mx-auto mb-4"
         >

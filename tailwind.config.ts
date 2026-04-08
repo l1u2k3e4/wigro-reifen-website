@@ -217,7 +217,7 @@ const config: Config = {
         'fade-in':         'fadeIn 0.3s ease-out both',
         'scale-in':        'scaleIn 0.3s ease-out both',
         // CTA-Puls
-        'pulse-glow':      'pulseGlow 2.5s ease-in-out infinite',
+        'pulse-glow':      'pulseGlow 2.5s ease-in-out 2',
         // Partner-Karussell
         'marquee':         'marquee 30s linear infinite',
         // Menü-Animationen
@@ -226,7 +226,7 @@ const config: Config = {
         // Testimonials — vertikaler Scroll (Dauer via CSS Custom Property)
         'scroll-up':       'scrollUp var(--scroll-duration, 15s) linear infinite',
         // Hero Chevron-Bounce
-        'bounce-chevron':  'bounceChevron 2s ease-in-out infinite',
+        'bounce-chevron':  'bounceChevron 2s ease-in-out 3',
       },
 
       // ──────────────────────────────────────────────

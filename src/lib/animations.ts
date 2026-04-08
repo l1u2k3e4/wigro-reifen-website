@@ -8,6 +8,9 @@ import type { Variants } from 'framer-motion'
 export const isMobile =
   typeof window !== 'undefined' && window.innerWidth < 1024
 
+// Einheitliches Easing — custom cubic-bezier überall
+const EASE = [0.22, 1, 0.36, 1] as const
+
 // Auf Mobile: hidden === visible → Element sofort sichtbar, kein Observer nötig
 export const noAnim: Variants = {
   hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
@@ -17,21 +20,23 @@ export const noAnim: Variants = {
 export const fadeInUp: Variants = isMobile
   ? noAnim
   : {
-      hidden: { opacity: 0, y: 12 },
+      hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
       visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+        filter: 'blur(0px)',
+        transition: { duration: 0.25, ease: EASE },
       },
     }
 
 export const fadeIn: Variants = isMobile
   ? noAnim
   : {
-      hidden: { opacity: 0 },
+      hidden: { opacity: 0, filter: 'blur(4px)' },
       visible: {
         opacity: 1,
-        transition: { duration: 0.3, ease: 'easeOut' },
+        filter: 'blur(0px)',
+        transition: { duration: 0.25, ease: EASE },
       },
     }
 
@@ -54,41 +59,43 @@ export const slideInRight: Variants = isMobile
       visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.25, ease: EASE },
       },
       exit: {
         opacity: 0,
         x: '100%',
-        transition: { duration: 0.2, ease: 'easeIn' },
+        transition: { duration: 0.18, ease: 'easeIn' },
       },
     }
 
 export const scaleIn: Variants = isMobile
   ? noAnim
   : {
-      hidden: { opacity: 0, scale: 0.95 },
+      hidden: { opacity: 0, scale: 0.95, filter: 'blur(4px)' },
       visible: {
         opacity: 1,
         scale: 1,
-        transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+        filter: 'blur(0px)',
+        transition: { duration: 0.25, ease: EASE },
       },
     }
 
 export const slideUp: Variants = isMobile
   ? {
       ...noAnim,
-      exit: { opacity: 0, y: 48, transition: { duration: 0.2, ease: 'easeIn' } },
+      exit: { opacity: 0, y: 48, transition: { duration: 0.18, ease: 'easeIn' } },
     }
   : {
-      hidden: { opacity: 0, y: 48 },
+      hidden: { opacity: 0, y: 48, filter: 'blur(4px)' },
       visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+        filter: 'blur(0px)',
+        transition: { duration: 0.3, ease: EASE },
       },
       exit: {
         opacity: 0,
         y: 48,
-        transition: { duration: 0.2, ease: 'easeIn' },
+        transition: { duration: 0.18, ease: 'easeIn' },
       },
     }

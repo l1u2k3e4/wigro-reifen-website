@@ -30,7 +30,7 @@ export default function TeamCard({
         <img
           src={image}
           alt={`${name} — ${role} bei WIGRO Reifen Witten`}
-          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
           decoding="async"
           width="800"

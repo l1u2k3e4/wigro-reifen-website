@@ -24,17 +24,19 @@ const containerVariants: Variants = isMobile
   ? noAnim
   : { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }
 
+const EASE = [0.22, 1, 0.36, 1] as const
+
 const fadeInLeft: Variants = isMobile
   ? noAnim
-  : { hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } } }
+  : { hidden: { opacity: 0, x: -20, filter: 'blur(4px)' }, visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.3, ease: EASE } } }
 
 const fadeInRight: Variants = isMobile
   ? noAnim
-  : { hidden: { opacity: 0, x: 30 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } } }
+  : { hidden: { opacity: 0, x: 20, filter: 'blur(4px)' }, visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.3, ease: EASE } } }
 
 const scaleIn: Variants = isMobile
   ? noAnim
-  : { hidden: { opacity: 0, scale: 0.85 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' as const } } }
+  : { hidden: { opacity: 0, scale: 0.95, filter: 'blur(4px)' }, visible: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.25, ease: EASE } } }
 
 export default function LeistungDetail({
   id,
