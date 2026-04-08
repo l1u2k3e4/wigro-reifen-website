@@ -3,17 +3,21 @@
 
 import { motion } from 'framer-motion'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 import SectionHeading from '@/components/ui/SectionHeading'
 import FAQItem from '@/components/ui/FAQItem'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 
 export default function FAQSection() {
+  const overrides = useModuleOverrides<typeof COPY.faq>('faq')
+  const faq = mergeOverrides(COPY.faq, overrides)
   return (
     <section id="faq" className="section-surface" aria-labelledby="faq-heading">
       <div className="container-content">
         <SectionHeading
-          title={COPY.faq.headline}
-          subtitle={COPY.faq.subline}
+          title={faq.headline}
+          subtitle={faq.subline}
           tag="h2"
           alignment="center"
         />
@@ -28,7 +32,7 @@ export default function FAQSection() {
           itemScope
           itemType="https://schema.org/FAQPage"
         >
-          {COPY.faq.items.map((item, _index) => (
+          {faq.items.map((item, _index) => (
             <motion.div
               key={item.frage}
               variants={fadeInUp}

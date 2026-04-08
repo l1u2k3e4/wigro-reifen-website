@@ -229,37 +229,53 @@ Basis: **4pt/8dp-Raster** (Material Design Standard)
 
 ## 7. Animationen
 
-### Wann welche Animation
+> **WICHTIG:** Framer Motion Scroll-Animationen sind auf **Mobile (< 1024px) komplett deaktiviert** für flüssiges Scrolling. Alle Inhalte werden auf Mobile sofort sichtbar gerendert. Desktop (≥ 1024px) behält alle Animationen.
 
-| Animation | Klasse | Dauer | Einsatz |
-|-----------|--------|-------|---------|
-| `fadeInUp` | `animate-fade-in-up` | 500ms | Standard Scroll-Animation für alle Sections |
-| `fadeInUp slow` | `animate-fade-in-up-slow` | 700ms | Hero-Headline, wichtige Elemente |
-| `fadeIn` | `animate-fade-in` | 300ms | Trust-Badges, kleine UI-Elemente |
-| `scaleIn` | `animate-scale-in` | 300ms | Cards beim Einblenden |
-| `pulseGlow` | `animate-pulse-glow` | 2.5s ∞ | Haupt-CTA-Button im Hero |
-| `slideInRight` | `animate-slide-in-right` | 280ms | Mobile-Menü öffnen |
-| `slideOutRight` | `animate-slide-out-right` | 200ms | Mobile-Menü schließen |
-
-### Framer Motion (bevorzugt für Scroll-Animationen)
+### Mobile-Bypass (`src/lib/animations.ts`)
 
 ```tsx
-// Standard Scroll-Animation — immer so verwenden
+// isMobile wird einmalig beim Import ausgewertet
+export const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024
+
+// Auf Mobile: hidden === visible → sofort sichtbar, kein Observer
+export const noAnim: Variants = {
+  hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
+  visible: { opacity: 1, y: 0, x: 0, scale: 1 },
+}
+
+// Alle exportierten Variants (fadeInUp, staggerContainer, etc.)
+// nutzen automatisch noAnim auf Mobile
+export const fadeInUp: Variants = isMobile ? noAnim : { /* Desktop-Animation */ }
+```
+
+**Regel:** Bei lokalen Variants in Section-Dateien immer `isMobile` und `noAnim` importieren:
+```tsx
+import { isMobile, noAnim } from '@/lib/animations'
+const myVariants: Variants = isMobile ? noAnim : { /* Desktop */ }
+```
+
+### CSS-Animationen (laufen auch auf Mobile)
+
+| Animation | Klasse | Dauer | Einsatz | Mobile-Verhalten |
+|-----------|--------|-------|---------|-----------------|
+| `scrollUp` | `animate-scroll-up` | var `--scroll-duration` | Testimonials-Spalte vertikaler Loop | Pausiert wenn nicht im Viewport (IntersectionObserver) |
+| `marquee` | `animate-marquee` | 30s | Partner-Logos Karussell | Pausiert wenn nicht im Viewport |
+| `bounceChevron` | `animate-bounce-chevron` | 2s | Hero Scroll-Indikator | Pausiert wenn Hero nicht sichtbar |
+| `pulseGlow` | `animate-pulse-glow` | 2.5s | CTA-Button | Nur auf Desktop |
+| `wgPulse` | CSS in ChatWidget | 2.5s × 3 | Chat-FAB Puls | 3 Iterationen, dann Stopp |
+| `wgBlink` | CSS in ChatWidget | 2s | Status-Indikator | Nur wenn Chat-Panel offen |
+| `slideInRight` | `animate-slide-in-right` | 280ms | Mobile-Menü öffnen | Normal |
+| `slideOutRight` | `animate-slide-out-right` | 200ms | Mobile-Menü schließen | Normal |
+
+### Framer Motion (nur Desktop ≥ 1024px)
+
+```tsx
+// Standard Scroll-Animation — funktioniert auf Desktop, auf Mobile sofort sichtbar
 import { motion } from 'framer-motion'
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
-}
-
-// Stagger für Listen
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } }
-}
+import { fadeInUp, staggerContainer } from '@/lib/animations'
 
 <motion.div
-  variants={fadeInUp}
+  variants={fadeInUp}         // → noAnim auf Mobile
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, margin: "-50px" }}
@@ -270,13 +286,16 @@ const staggerContainer = {
 
 ### Animationsregeln
 
-- **Dauer:** Micro-Interactions 150–200ms, Scroll-Einblendungen 400–600ms, max. 700ms
+- **Mobile (< 1024px):** Keine Framer Motion Animationen — alle Inhalte sofort sichtbar
+- **Desktop:** Dauer 400–600ms für Scroll-Einblendungen, max. 700ms
 - **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` (Spring) für Einblenden, `ease-in` für Ausblenden
 - **Austritt kürzer als Eintritt:** Ausblend-Animationen 60–70% der Einblend-Dauer
-- **Reduced Motion:** Immer `prefers-reduced-motion` berücksichtigen (bereits in `index.css`)
-- **Max. 1–2 animierte Elemente** gleichzeitig sichtbar — kein Motion-Overload
-- **Stagger-Verzögerung:** 60–80ms zwischen einzelnen List-Items
+- **CSS-Endlos-Animationen:** Müssen `animationPlayState: paused` setzen wenn nicht im Viewport (IntersectionObserver)
+- **ChatWidget:** Pulse max. 3 Iterationen, Blink nur bei offenem Panel
+- **`scroll-behavior: smooth`** nur auf Desktop (≥ 1024px) — auf Mobile verursacht es Jank
+- **Scroll-Listener:** Immer mit `requestAnimationFrame`-Throttle (kein unthrottled `addEventListener('scroll')`)
 - **`once: true`** bei `whileInView` — Element wird nicht jedes Mal animiert
+- **`prefers-reduced-motion: reduce`:** Globale Regel in `index.css` deaktiviert alle Animationen
 
 ---
 
@@ -339,7 +358,11 @@ const staggerContainer = {
 - [x] Google Fonts korrekt referenziert (display=swap, preconnect in index.css)
 - [x] Tailwind-Config: Farben, Fonts, Shadows, Keyframes, Z-Index alle definiert
 - [x] `index.css` hat korrekte Tailwind Directives
-- [x] Reduced-Motion Mediaquery in `index.css`
+- [x] Reduced-Motion Mediaquery in `index.css` (globale Regel für alle Animationen)
+- [x] Framer Motion auf Mobile (< 1024px) deaktiviert via `isMobile`/`noAnim` in `animations.ts`
+- [x] CSS-Endlos-Animationen pausieren wenn nicht im Viewport (IntersectionObserver)
+- [x] Scroll-Listener mit `requestAnimationFrame`-Throttle (Header, StickyCTABar)
+- [x] `scroll-behavior: smooth` nur auf Desktop (≥ 1024px)
 - [x] Touch-Target min. 44px in `.btn-primary`
 - [x] Farbpalette passt zur Automotive-Branche (dunkelgrün = Kompetenz/Verlässlichkeit)
 - [x] Kein reines Schwarz (#000) — `brand-heading` = #1A1A1A

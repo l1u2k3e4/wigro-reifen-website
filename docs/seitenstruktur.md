@@ -80,7 +80,7 @@
 │     Firma, Adresse, Links, Copyright            │
 └─────────────────────────────────────────────────┘
 
-Mobile: Sticky CTA-Bar nach 30% Scroll
+Mobile: Sticky CTA-Bar (erscheint sobald Hero nicht mehr sichtbar — IntersectionObserver)
 (Anrufen | WhatsApp)
 ```
 
@@ -288,7 +288,7 @@ Mobile:
 → Slide-Over von rechts mit allen Links + CTA
 ```
 
-### Sticky CTA-Bar (nur Mobile, nach 30% Scroll)
+### Sticky CTA-Bar (nur Mobile < 1024px, IntersectionObserver auf Hero)
 
 ```
 [ 📞 Anrufen ]  [ 💬 WhatsApp ]
@@ -347,6 +347,6 @@ Niemals mehr als 2 CTAs nebeneinander zeigen.
 
 | Breakpoint | Breite | Verhalten |
 |---|---|---|
-| Mobile | < 640px | 1 Spalte, Sticky CTA-Bar |
-| Tablet | 640–1024px | 2 Spalten, kein Sticky |
+| Mobile | < 640px | 1 Spalte, Sticky CTA-Bar (nach Hero) |
+| Tablet | 640–1024px | 2 Spalten, Sticky CTA-Bar (nach Hero) |
 | Desktop | > 1024px | 3+ Spalten, Nav mit Links |

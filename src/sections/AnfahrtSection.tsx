@@ -4,18 +4,22 @@
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Clock, Mail, Navigation } from 'lucide-react'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 import SectionHeading from '@/components/ui/SectionHeading'
 import GlowButton from '@/components/ui/GlowButton'
 import { fadeInUp } from '@/lib/animations'
 import { openMapsRoute } from '@/lib/maps'
 
 export default function AnfahrtSection() {
+  const overrides = useModuleOverrides<typeof COPY.anfahrt>('anfahrt')
+  const anfahrt = mergeOverrides(COPY.anfahrt, overrides)
   return (
     <section id="anfahrt" className="section" aria-labelledby="anfahrt-heading">
       <div className="container-content">
         <SectionHeading
-          title={COPY.anfahrt.headline}
-          subtitle={COPY.anfahrt.subline}
+          title={anfahrt.headline}
+          subtitle={anfahrt.subline}
           tag="h2"
           alignment="center"
         />
@@ -36,8 +40,8 @@ export default function AnfahrtSection() {
               </div>
               <div>
                 <p className="font-semibold text-brand-heading text-sm mb-0.5">Adresse</p>
-                <p className="text-brand-body text-sm">{COPY.anfahrt.adresse}</p>
-                <p className="text-brand-muted text-xs mt-1">{COPY.anfahrt.parkplatz}</p>
+                <p className="text-brand-body text-sm">{anfahrt.adresse}</p>
+                <p className="text-brand-muted text-xs mt-1">{anfahrt.parkplatz}</p>
               </div>
             </div>
 
@@ -49,10 +53,10 @@ export default function AnfahrtSection() {
               <div>
                 <p className="font-semibold text-brand-heading text-sm mb-0.5">Telefon</p>
                 <a
-                  href={COPY.anfahrt.telefonHref}
+                  href={anfahrt.telefonHref}
                   className="text-brand-blue text-sm hover:text-brand-blueLight transition-colors font-medium"
                 >
-                  {COPY.anfahrt.telefon}
+                  {anfahrt.telefon}
                 </a>
               </div>
             </div>
@@ -65,10 +69,10 @@ export default function AnfahrtSection() {
               <div>
                 <p className="font-semibold text-brand-heading text-sm mb-0.5">E-Mail</p>
                 <a
-                  href={COPY.anfahrt.emailHref}
+                  href={anfahrt.emailHref}
                   className="text-brand-blue text-sm hover:text-brand-blueLight transition-colors font-medium"
                 >
-                  {COPY.anfahrt.email}
+                  {anfahrt.email}
                 </a>
               </div>
             </div>
@@ -80,7 +84,7 @@ export default function AnfahrtSection() {
               </div>
               <div>
                 <p className="font-semibold text-brand-heading text-sm mb-1">Öffnungszeiten</p>
-                {COPY.anfahrt.oeffnungszeiten.map((row, i) => (
+                {anfahrt.oeffnungszeiten.map((row, i) => (
                   <div key={i} className="flex gap-4 text-sm text-brand-body">
                     <span className="min-w-[120px]">{row.tag}</span>
                     <span>{row.zeiten}</span>

@@ -198,6 +198,16 @@ const config: Config = {
           '0%':   { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        // Testimonials — vertikaler Endlos-Scroll (GPU-beschleunigt)
+        scrollUp: {
+          '0%':   { transform: 'translateY(0) translateZ(0)' },
+          '100%': { transform: 'translateY(-50%) translateZ(0)' },
+        },
+        // Hero Chevron — sanftes Hüpfen (GPU-beschleunigt)
+        bounceChevron: {
+          '0%, 100%': { transform: 'translateY(0) translateZ(0)' },
+          '50%':      { transform: 'translateY(8px) translateZ(0)' },
+        },
       },
 
       animation: {
@@ -213,6 +223,10 @@ const config: Config = {
         // Menü-Animationen
         'slide-in-right':  'slideInRight 0.28s cubic-bezier(0.22, 1, 0.36, 1) both',
         'slide-out-right': 'slideOutRight 0.20s ease-in both',
+        // Testimonials — vertikaler Scroll (Dauer via CSS Custom Property)
+        'scroll-up':       'scrollUp var(--scroll-duration, 15s) linear infinite',
+        // Hero Chevron-Bounce
+        'bounce-chevron':  'bounceChevron 2s ease-in-out infinite',
       },
 
       // ──────────────────────────────────────────────

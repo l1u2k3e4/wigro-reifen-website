@@ -6,6 +6,7 @@ import { useRef, useEffect, useState, useMemo } from 'react'
 import { motion, useInView, type Variants } from 'framer-motion'
 import { COPY } from '@/data/content'
 import { getIcon } from '@/lib/icons'
+import { isMobile, noAnim } from '@/lib/animations'
 import SectionHeading from '@/components/ui/SectionHeading'
 
 // ── Animated counter hook ──
@@ -30,13 +31,13 @@ function useAnimatedCounter(target: string, isInView: boolean) {
 
     const { endVal, suffix, isDecimal } = parsed
     const duration = 1600
-    const steps = 40
-    const stepTime = duration / steps
-    let step = 0
+    let start: number | null = null
+    let rafId: number
 
-    const timer = setInterval(() => {
-      step++
-      const progress = Math.min(step / steps, 1)
+    function tick(timestamp: number) {
+      if (start === null) start = timestamp
+      const elapsed = timestamp - start
+      const progress = Math.min(elapsed / duration, 1)
       // easeOutQuart
       const eased = 1 - Math.pow(1 - progress, 4)
       const current = eased * endVal
@@ -47,10 +48,13 @@ function useAnimatedCounter(target: string, isInView: boolean) {
         setDisplay(Math.round(current).toString() + suffix)
       }
 
-      if (step >= steps) clearInterval(timer)
-    }, stepTime)
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick)
+      }
+    }
 
-    return () => clearInterval(timer)
+    rafId = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafId)
   }, [isInView, target, parsed])
 
   return display
@@ -80,21 +84,23 @@ function AnimatedStat({ zahl, label }: { zahl: string; label: string }) {
 }
 
 // ── Stagger container & card variants ──
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
-}
+const containerVariants: Variants = isMobile
+  ? noAnim
+  : {
+      hidden: {},
+      visible: { transition: { staggerChildren: 0.15 } },
+    }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
-  },
-}
+const cardVariants: Variants = isMobile
+  ? noAnim
+  : {
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: 'easeOut' },
+      },
+    }
 
 export default function WarumWIGRO() {
   return (

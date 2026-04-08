@@ -138,8 +138,8 @@ export default function ChatWidget() {
   border-radius: 50%;
   border: 2px solid var(--wg-accent);
   pointer-events: none;
-  animation: wgPulse 2.5s ease-out infinite;
-  will-change: transform, opacity;
+  animation: wgPulse 2.5s ease-out 3;
+  will-change: auto;
 }
 
 .wigro-chat .wg-fab.active::before {
@@ -224,12 +224,16 @@ export default function ChatWidget() {
   width: 8px; height: 8px; border-radius: 50%;
   background: #4ade80; margin-right: 6px;
   box-shadow: 0 0 0 2px rgba(74,222,128,0.3);
-  animation: wgBlink 2s ease infinite;
+  animation: none;
 }
 
 @keyframes wgBlink {
   0%,100% { opacity: 1; }
   50%     { opacity: 0.5; }
+}
+
+.wigro-chat .wg-panel.open .wg-status {
+  animation: wgBlink 2s ease infinite;
 }
 
 .wigro-chat .wg-close {

@@ -4,6 +4,7 @@
 import { motion, type Variants } from 'framer-motion'
 import { Check, Phone } from 'lucide-react'
 import { getIcon } from '@/lib/icons'
+import { isMobile, noAnim } from '@/lib/animations'
 import GlowButton from '@/components/ui/GlowButton'
 import { cn } from '@/lib/utils'
 
@@ -19,51 +20,21 @@ interface LeistungDetailProps {
   surface?: boolean
 }
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-}
+const containerVariants: Variants = isMobile
+  ? noAnim
+  : { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }
 
-const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: 'easeOut' as const },
-  },
-}
+const fadeInLeft: Variants = isMobile
+  ? noAnim
+  : { hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } } }
 
-const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: 'easeOut' as const },
-  },
-}
+const fadeInRight: Variants = isMobile
+  ? noAnim
+  : { hidden: { opacity: 0, x: 30 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } } }
 
-const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
-  },
-}
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
-  },
-}
+const scaleIn: Variants = isMobile
+  ? noAnim
+  : { hidden: { opacity: 0, scale: 0.85 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' as const } } }
 
 export default function LeistungDetail({
   id,

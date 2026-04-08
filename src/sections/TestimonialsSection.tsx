@@ -1,15 +1,37 @@
 // src/sections/TestimonialsSection.tsx
 // Google-Bewertungen im Spalten-Karussell-Stil (Desktop: 3 Columns, Tablet: 2, Mobile: 1)
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { isMobile } from '@/lib/animations'
 import { ExternalLink } from 'lucide-react'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { TestimonialsColumn } from '@/components/ui/TestimonialsColumn'
 import type { TestimonialItem } from '@/components/ui/TestimonialsColumn'
 
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia(query).matches : false,
+  )
+  useEffect(() => {
+    const mql = window.matchMedia(query)
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
+  }, [query])
+  return matches
+}
+
 export default function TestimonialsSection() {
-  const items = COPY.bewertungen.items as unknown as TestimonialItem[]
+  const overrides = useModuleOverrides<typeof COPY.bewertungen>('bewertungen')
+  const bewertungen = mergeOverrides(COPY.bewertungen, overrides)
+  const items = bewertungen.items as unknown as TestimonialItem[]
+
+  const isMd = useMediaQuery('(min-width: 768px)')
+  const isLg = useMediaQuery('(min-width: 1024px)')
 
   // Split items into 3 columns
   const col1 = items.slice(0, 3)
@@ -21,9 +43,9 @@ export default function TestimonialsSection() {
       <div className="container-content">
         {/* Header with overall rating */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
           className="flex flex-col items-center justify-center max-w-xl mx-auto mb-4"
         >
@@ -38,14 +60,14 @@ export default function TestimonialsSection() {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
               <span className="font-display font-bold text-xl text-brand-heading">
-                {COPY.bewertungen.ratingValue}
+                {bewertungen.ratingValue}
               </span>
             </div>
           </div>
 
           <SectionHeading
-            title={COPY.bewertungen.headline}
-            subtitle={`Basierend auf ${COPY.bewertungen.ratingCount} Google-Bewertungen`}
+            title={bewertungen.headline}
+            subtitle={`Basierend auf ${bewertungen.ratingCount} Google-Bewertungen`}
             tag="h2"
             alignment="center"
           />
@@ -54,20 +76,20 @@ export default function TestimonialsSection() {
         {/* Testimonial Columns — mit fade-mask oben/unten */}
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[700px] overflow-hidden">
           <TestimonialsColumn testimonials={col1} duration={15} />
-          <TestimonialsColumn testimonials={col2} className="hidden md:block" duration={19} />
-          <TestimonialsColumn testimonials={col3} className="hidden lg:block" duration={17} />
+          {isMd && <TestimonialsColumn testimonials={col2} duration={19} />}
+          {isLg && <TestimonialsColumn testimonials={col3} duration={17} />}
         </div>
 
         {/* Google CTA */}
         <div className="mt-8 flex flex-col items-center">
           <a
-            href={COPY.bewertungen.cta.href}
+            href={bewertungen.cta.href}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-brand-blue font-semibold text-sm hover:text-brand-blueLight transition-colors group"
             aria-label="Alle Google-Bewertungen von WIGRO Reifen ansehen"
           >
-            <span>{COPY.bewertungen.cta.label}</span>
+            <span>{bewertungen.cta.label}</span>
             <ExternalLink size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
           </a>
         </div>

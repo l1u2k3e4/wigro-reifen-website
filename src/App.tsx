@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { ContentOverridesProvider } from '@/context/ContentOverridesContext'
 import SharedLayout from '@/components/layout/SharedLayout'
 import PageLoader from '@/components/ui/PageLoader'
 
@@ -21,21 +22,23 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route element={<SharedLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/leistungen" element={<Leistungen />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/kontakt" element={<Kontakt />} />
-            <Route path="/impressum" element={<Impressum />} />
-            <Route path="/datenschutz" element={<Datenschutz />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <ContentOverridesProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route element={<SharedLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/leistungen" element={<Leistungen />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/kontakt" element={<Kontakt />} />
+              <Route path="/impressum" element={<Impressum />} />
+              <Route path="/datenschutz" element={<Datenschutz />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </ContentOverridesProvider>
   )
 }

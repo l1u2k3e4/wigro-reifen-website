@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "lastModified": "2026-04-08T11:08:34.096Z",
+    "version": 2
+  },
+  "galerie": null,
+  "oeffnungszeiten": null,
+  "aktionen": null,
+  "bewertungen": null,
+  "team": null,
+  "hero": null,
+  "banner": null,
+  "trustbar": {
+    "rating": 4.8,
+    "totalReviews": 308,
+    "markenpartner": 5,
+    "lastGoogleSync": null
+  },
+  "leistungen": null,
+  "faq": null,
+  "anfahrt": null
+}

@@ -4,12 +4,16 @@
 import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 
 export default function Footer() {
+  const overrides = useModuleOverrides<typeof COPY.footer>('footer')
+  const footer = mergeOverrides(COPY.footer, overrides)
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-brand-blue text-white" aria-label="Seitenfuß">
+    <footer className="bg-brand-blue text-white pb-20 lg:pb-0" aria-label="Seitenfuß">
       <div className="container-content py-12 lg:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
 
@@ -22,7 +26,7 @@ export default function Footer() {
               loading="lazy"
             />
             <p className="text-sm text-white/90 font-medium leading-relaxed">
-              {COPY.footer.slogan}
+              {footer.slogan}
             </p>
             {/* Social Media Links */}
             <div className="flex items-center gap-3 mt-2">
@@ -55,7 +59,7 @@ export default function Footer() {
               Navigation
             </p>
             <ul className="flex flex-col gap-2">
-              {COPY.footer.links.map((link) => (
+              {footer.links.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
@@ -76,34 +80,34 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 text-sm">
               <li>
                 <a
-                  href={COPY.footer.telefonHref}
+                  href={footer.telefonHref}
                   className="flex items-start gap-2 text-white/90 font-medium hover:text-white transition-colors"
-                  aria-label={`WIGRO Reifen anrufen: ${COPY.footer.telefon}`}
+                  aria-label={`WIGRO Reifen anrufen: ${footer.telefon}`}
                 >
                   <Phone size={14} className="shrink-0 mt-0.5" aria-hidden />
-                  <span>{COPY.footer.telefon}</span>
+                  <span>{footer.telefon}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href={COPY.footer.emailHref}
+                  href={footer.emailHref}
                   className="flex items-start gap-2 text-white/90 font-medium hover:text-white transition-colors"
-                  aria-label={`E-Mail an WIGRO Reifen: ${COPY.footer.email}`}
+                  aria-label={`E-Mail an WIGRO Reifen: ${footer.email}`}
                 >
                   <Mail size={14} className="shrink-0 mt-0.5" aria-hidden />
-                  <span>{COPY.footer.email}</span>
+                  <span>{footer.email}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href={COPY.footer.googleMapsUrl}
+                  href={footer.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 text-white/90 font-medium hover:text-white transition-colors"
                   aria-label="WIGRO Reifen auf Google Maps finden"
                 >
                   <MapPin size={14} className="shrink-0 mt-0.5" aria-hidden />
-                  <span>{COPY.footer.adresse}</span>
+                  <span>{footer.adresse}</span>
                 </a>
               </li>
             </ul>
@@ -129,7 +133,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/20">
         <div className="container-content py-4 flex items-center justify-between text-xs text-white/60 font-medium">
-          <span>{COPY.footer.copyright.replace(new Date().getFullYear().toString(), year.toString())}</span>
+          <span>{footer.copyright.replace(new Date().getFullYear().toString(), year.toString())}</span>
           <div className="flex gap-4">
             <Link to="/impressum" className="hover:text-white transition-colors">Impressum</Link>
             <Link to="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link>

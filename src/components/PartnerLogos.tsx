@@ -1,6 +1,7 @@
 // src/components/PartnerLogos.tsx
 // Infinite-scroll Marquee der Markenpartner-Logos
 
+import { useRef, useState, useEffect } from 'react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'
 
@@ -9,8 +10,22 @@ export default function PartnerLogos() {
   // Dreifach duplizieren für lückenlosen Loop — wichtig bei nur 5 Logos
   const tripled = [...logos, ...logos, ...logos]
 
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="section-surface overflow-x-clip" aria-label="Unsere Markenpartner">
+    <section ref={sectionRef} className="section-surface overflow-x-clip" aria-label="Unsere Markenpartner">
       <div className="container-content">
         <SectionHeading
           title={COPY.partner.headline}
@@ -26,8 +41,8 @@ export default function PartnerLogos() {
 
         {/* Scrolling track */}
         <div
-          className="flex items-center gap-8 md:gap-12 animate-marquee w-max will-change-transform"
-          style={{ backfaceVisibility: 'hidden' }}
+          className={`flex items-center gap-8 md:gap-12 animate-marquee w-max ${isVisible ? 'will-change-transform' : ''}`}
+          style={{ backfaceVisibility: 'hidden', animationPlayState: isVisible ? 'running' : 'paused' }}
           aria-hidden="true"
         >
           {tripled.map((partner, i) => (

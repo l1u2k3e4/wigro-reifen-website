@@ -86,7 +86,7 @@ Website.v1/                          ← Alte WordPress/Elementor-Daten
 | **React** | 18+ | UI-Framework |
 | **TypeScript** | strict mode | Typsicherheit |
 | **Tailwind CSS** | v3.4+ | Styling (Utility-First) |
-| **Framer Motion** | 12+ | Animationen, Scroll-Transitions |
+| **Framer Motion** | 12+ | Animationen, Scroll-Transitions (**nur Desktop ≥ 1024px** — auf Mobile deaktiviert via `isMobile`/`noAnim` in `src/lib/animations.ts`) |
 | **React Router** | v6+ | Client-side Routing (Home, Leistungen, Team, Kontakt, Impressum, Datenschutz) |
 | **Lucide React** | latest | Icon-Bibliothek |
 | **clsx + tailwind-merge** | latest | Conditional CSS Klassen |
@@ -193,13 +193,14 @@ Spezialisierte Agents liegen unter `.claude/agents/`. Sie werden für Reviews un
 
 - **Mobile-first** Design — 70%+ der Nutzer kommen mobil
 - **Sub-2s Ladezeit** auf 4G-Mobilfunk
+- **Flüssiges Scrolling auf Mobile** — Framer Motion auf Mobile deaktiviert, CSS-Animationen pausieren wenn nicht im Viewport, `scroll-behavior: smooth` nur auf Desktop
 - **Intuitive Navigation** — Hamburger-Menü mit Slide-Over von rechts
 - **Visuell überlegen** gegenüber jedem Reifenhändler in der Region
 
 ### Conversion — Jede Seite verkauft
 
 - **CTA above-the-fold** auf jeder Seite (Anruf, WhatsApp, Termin)
-- **Sticky CTA-Bar** auf Mobile nach 30% Scroll
+- **Sticky CTA-Bar** auf Mobile (IntersectionObserver auf Hero — erscheint sobald Hero nicht mehr sichtbar)
 - **Click-to-Call** Button immer sichtbar
 - **WhatsApp-Integration** als sekundärer Kontaktkanal
 

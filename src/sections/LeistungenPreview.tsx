@@ -5,57 +5,42 @@ import { Link } from 'react-router-dom'
 import { motion, type Variants, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
+import { isMobile, noAnim } from '@/lib/animations'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ServiceCard from '@/components/ui/ServiceCard'
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 },
-  },
-}
+const containerVariants: Variants = isMobile
+  ? noAnim
+  : { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }
 
-// Desktop: Standard fade-up für Grid-Layout
-const desktopVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
-  },
-}
+const desktopVariants: Variants = isMobile
+  ? noAnim
+  : {
+      hidden: { opacity: 0, y: 24 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: 'easeOut' as const },
+      },
+    }
 
-// Mobile: Einfache, schnelle Fade-Animationen für flüssiges Scrollen
-const mobileVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: 'easeOut',
-    },
-  },
-}
+const mobileVariants: Variants = noAnim
 
-// Für Nutzer mit reduzierten Bewegungen
-const reducedVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.3 },
-  },
-}
+const reducedVariants: Variants = noAnim
 
 export default function LeistungenPreview() {
   const prefersReduced = useReducedMotion()
+  const overrides = useModuleOverrides<typeof COPY.leistungenOverview>('leistungen')
+  const leistungen = mergeOverrides(COPY.leistungenOverview, overrides)
 
   return (
     <section id="leistungen" className="section-surface" aria-labelledby="leistungen-heading">
       <div className="container-content">
         <SectionHeading
-          title={COPY.leistungenOverview.headline}
-          subtitle={COPY.leistungenOverview.subline}
+          title={leistungen.headline}
+          subtitle={leistungen.subline}
           tag="h2"
           alignment="center"
         />
@@ -68,7 +53,7 @@ export default function LeistungenPreview() {
           variants={containerVariants}
           className="mt-12 hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {COPY.leistungenOverview.items.map((item) => (
+          {leistungen.items.map((item) => (
             <motion.div
               key={item.title}
               variants={prefersReduced ? reducedVariants : desktopVariants}
@@ -92,7 +77,7 @@ export default function LeistungenPreview() {
           variants={containerVariants}
           className="mt-12 flex flex-col gap-4 sm:hidden"
         >
-          {COPY.leistungenOverview.items.map((item) => {
+          {leistungen.items.map((item) => {
             return (
               <motion.div
                 key={item.title}
@@ -110,10 +95,10 @@ export default function LeistungenPreview() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.4 }}
           className="mt-10 text-center"
         >
           <Link

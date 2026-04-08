@@ -1,13 +1,33 @@
 // src/sections/HeroSection.tsx
 // Hero-Section der Startseite — Vollbild-Hintergrundbild, Dual CTA, Trust-Signal
 
+import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, MessageCircle, ChevronDown } from 'lucide-react'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 import GlowButton from '@/components/ui/GlowButton'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 
 export default function HeroSection() {
+  const overrides = useModuleOverrides<typeof COPY.hero>('hero')
+  const hero = mergeOverrides(COPY.hero, overrides)
+
+  const chevronRef = useRef<HTMLDivElement>(null)
+  const [chevronVisible, setChevronVisible] = useState(true)
+
+  useEffect(() => {
+    const el = chevronRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setChevronVisible(entry.isIntersecting),
+      { threshold: 0 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
       id="hero"
@@ -17,8 +37,8 @@ export default function HeroSection() {
       {/* Hintergrundbild */}
       <div className="absolute inset-0 z-0">
         <img
-          src={COPY.hero.image.src}
-          alt={COPY.hero.image.alt}
+          src={hero.image.src}
+          alt={hero.image.alt}
           className="w-full h-full object-cover object-center"
           loading="eager"
           fetchPriority="high"
@@ -43,7 +63,7 @@ export default function HeroSection() {
             variants={fadeInUp}
             className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-brand-white leading-tight max-w-3xl"
           >
-            {COPY.hero.headline}
+            {hero.headline}
           </motion.h1>
 
           {/* Subline */}
@@ -51,7 +71,7 @@ export default function HeroSection() {
             variants={fadeInUp}
             className="text-white/85 text-lg md:text-xl max-w-2xl leading-relaxed"
           >
-            {COPY.hero.subline}
+            {hero.subline}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -60,8 +80,8 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row gap-4 mt-2"
           >
             <GlowButton
-              label={COPY.hero.ctaPrimary.label}
-              href={COPY.hero.ctaPrimary.href}
+              label={hero.ctaPrimary.label}
+              href={hero.ctaPrimary.href}
               variant="primary"
               size="lg"
               icon={Phone}
@@ -69,8 +89,8 @@ export default function HeroSection() {
               ariaLabel="Jetzt WIGRO Reifen anrufen"
             />
             <GlowButton
-              label={COPY.hero.ctaSecondary.label}
-              href={COPY.hero.ctaSecondary.href}
+              label={hero.ctaSecondary.label}
+              href={hero.ctaSecondary.href}
               variant="ghost"
               size="lg"
               icon={MessageCircle}
@@ -88,21 +108,21 @@ export default function HeroSection() {
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              <span>{COPY.hero.trustSignal}</span>
+              <span>{hero.trustSignal}</span>
             </span>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll-Down Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/60"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+      {/* Scroll-Down Indicator — pausiert wenn nicht im Viewport */}
+      <div
+        ref={chevronRef}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/60 animate-bounce-chevron"
+        style={{ animationPlayState: chevronVisible ? 'running' : 'paused' }}
         aria-hidden
       >
         <ChevronDown size={28} />
-      </motion.div>
+      </div>
     </section>
   )
 }

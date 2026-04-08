@@ -5,17 +5,29 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Phone, Menu } from 'lucide-react'
 import { COPY } from '@/data/content'
+import { useModuleOverrides } from '@/hooks/useContentOverrides'
+import { mergeOverrides } from '@/lib/mergeOverrides'
 import MobileMenu from '@/components/layout/MobileMenu'
 import { cn } from '@/lib/utils'
 
 export default function Header() {
+  const overrides = useModuleOverrides<typeof COPY.nav>('header')
+  const nav = mergeOverrides(COPY.nav, overrides)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const handleMenuClose = useCallback(() => setIsMenuOpen(false), [])
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 8)
+    let ticking = false
+    const handleScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 8)
+        ticking = false
+      })
+    }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -46,8 +58,8 @@ export default function Header() {
             aria-label="WIGRO Reifen — Startseite"
           >
             <img
-              src={COPY.nav.logo.src}
-              alt={COPY.nav.logo.alt}
+              src={nav.logo.src}
+              alt={nav.logo.alt}
               className="h-14 w-auto object-contain"
               loading="eager"
               fetchPriority="high"
@@ -59,7 +71,7 @@ export default function Header() {
             className="hidden lg:flex items-center gap-1"
             aria-label="Hauptnavigation"
           >
-            {COPY.nav.links.map((link) => {
+            {nav.links.map((link) => {
               const isActive = location.pathname === link.href
               return (
                 <Link
@@ -84,12 +96,12 @@ export default function Header() {
           <div className="flex items-center gap-2">
             {/* Desktop CTA — Lime-Green Button */}
             <a
-              href={COPY.nav.cta.href}
+              href={nav.cta.href}
               className="hidden lg:inline-flex items-center gap-2 text-sm px-5 py-2.5 bg-brand-cta hover:bg-brand-ctaHover text-brand-ctaText font-semibold rounded-btn transition-colors"
               aria-label={`WIGRO Reifen anrufen: ${COPY.kontaktdaten.telefon}`}
             >
               <Phone size={16} aria-hidden />
-              <span>{COPY.nav.cta.label}</span>
+              <span>{nav.cta.label}</span>
             </a>
 
             {/* Hamburger-Button (Mobile) */}

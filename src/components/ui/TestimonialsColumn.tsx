@@ -1,8 +1,7 @@
 // src/components/ui/TestimonialsColumn.tsx
 // Vertical auto-scrolling testimonial column (infinite loop)
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef, useState, useEffect } from 'react'
 import { Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -62,17 +61,28 @@ export function TestimonialsColumn({
   testimonials,
   duration = 10,
 }: TestimonialsColumnProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className={cn('overflow-hidden', className)}>
-      <motion.div
-        animate={{ translateY: '-50%' }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatType: 'loop',
-        }}
-        className="flex flex-col gap-6 pb-6"
+    <div ref={containerRef} className={cn('overflow-hidden', className)}>
+      <div
+        className="flex flex-col gap-6 pb-6 animate-scroll-up"
+        style={{
+          '--scroll-duration': `${duration}s`,
+          animationPlayState: isVisible ? 'running' : 'paused',
+        } as React.CSSProperties}
       >
         {[...new Array(2)].map((_, index) => (
           <React.Fragment key={index}>
@@ -114,7 +124,7 @@ export function TestimonialsColumn({
             ))}
           </React.Fragment>
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }
