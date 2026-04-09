@@ -7,23 +7,26 @@ import { ArrowRight } from 'lucide-react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'
 import { mergeOverrides } from '@/lib/mergeOverrides'
-import { noAnim } from '@/lib/animations'
+import { isMobile, noAnim } from '@/lib/animations'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ServiceCard from '@/components/ui/ServiceCard'
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-}
+const containerVariants: Variants = isMobile
+  ? noAnim
+  : { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
-  },
-}
+const desktopVariants: Variants = isMobile
+  ? noAnim
+  : {
+      hidden: { opacity: 0, y: 24 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: 'easeOut' as const },
+      },
+    }
+
+const mobileVariants: Variants = noAnim
 
 const reducedVariants: Variants = noAnim
 
@@ -53,7 +56,7 @@ export default function LeistungenPreview() {
           {leistungen.items.map((item) => (
             <motion.div
               key={item.title}
-              variants={prefersReduced ? reducedVariants : cardVariants}
+              variants={prefersReduced ? reducedVariants : desktopVariants}
               className="h-full"
             >
               <ServiceCard
@@ -78,7 +81,7 @@ export default function LeistungenPreview() {
             return (
               <motion.div
                 key={item.title}
-                variants={prefersReduced ? reducedVariants : cardVariants}
+                variants={prefersReduced ? reducedVariants : mobileVariants}
               >
                 <ServiceCard
                   title={item.title}
@@ -92,10 +95,10 @@ export default function LeistungenPreview() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.4 }}
           className="mt-10 text-center"
         >
           <Link

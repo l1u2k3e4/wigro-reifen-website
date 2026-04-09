@@ -86,7 +86,7 @@ Website.v1/                          ← Alte WordPress/Elementor-Daten
 | **React** | 18+ | UI-Framework |
 | **TypeScript** | strict mode | Typsicherheit |
 | **Tailwind CSS** | v3.4+ | Styling (Utility-First) |
-| **Motion** (motion.dev) | 11+ | Animationen, Scroll-Transitions — nutzt die Web Animations API (WAAPI, hardware-accelerated) für smooth 60fps auf allen Geräten inkl. Mobile. Import: `from 'motion/react'`. Zentrale Variants in `src/lib/animations.ts`. **Mobile Menü nutzt CSS Transitions** (Panel immer im DOM, `transition-transform` + `translate-x-full`). **Testimonials-Scroll** nutzt `requestAnimationFrame`. |
+| **Motion** (motion.dev) | 12+ | Animationen, Scroll-Transitions (**nur Desktop ≥ 1024px** — auf Mobile deaktiviert via `isMobile`/`noAnim` in `src/lib/animations.ts`). Import: `from 'motion/react'`. **Mobile Menü nutzt CSS Transitions** (Panel immer im DOM, `transition-transform` + `translate-x-full`). **Testimonials-Scroll** nutzt `requestAnimationFrame`. |
 | **React Router** | v6+ | Client-side Routing (Home, Leistungen, Team, Kontakt, Impressum, Datenschutz) |
 | **Lucide React** | latest | Icon-Bibliothek |
 | **clsx + tailwind-merge** | latest | Conditional CSS Klassen |
@@ -193,7 +193,7 @@ Spezialisierte Agents liegen unter `.claude/agents/`. Sie werden für Reviews un
 
 - **Mobile-first** Design — 70%+ der Nutzer kommen mobil
 - **Sub-2s Ladezeit** auf 4G-Mobilfunk
-- **Flüssiges Scrolling auf Mobile** — Motion (WAAPI) ermöglicht hardware-accelerated Animationen auf allen Geräten, CSS-Animationen pausieren wenn nicht im Viewport
+- **Flüssiges Scrolling auf Mobile** — Motion auf Mobile deaktiviert, CSS-Animationen pausieren wenn nicht im Viewport, `scroll-behavior: smooth` nur auf Desktop
 - **Intuitive Navigation** — Hamburger-Menü mit Slide-Over von rechts
 - **Visuell überlegen** gegenüber jedem Reifenhändler in der Region
 

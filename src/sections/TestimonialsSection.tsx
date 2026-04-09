@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
+import { isMobile } from '@/lib/animations'
 import { ExternalLink } from 'lucide-react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'
@@ -42,9 +43,9 @@ export default function TestimonialsSection() {
       <div className="container-content">
         {/* Header with overall rating */}
         <motion.div
-          initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 12, filter: 'blur(4px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.3, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.3, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="flex flex-col items-center justify-center max-w-xl mx-auto mb-4"
         >
