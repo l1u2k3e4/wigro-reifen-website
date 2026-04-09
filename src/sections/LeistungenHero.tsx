@@ -14,7 +14,7 @@ export default function LeistungenHero() {
       {/* Hintergrundbild */}
       <div className="absolute inset-0">
         <img
-          src="/Logo Sonstige/Werkstatt.01.webp"
+          src={`${import.meta.env.BASE_URL}Logo Sonstige/Werkstatt.01.webp`}
           alt=""
           className="w-full h-full object-cover"
           loading="eager"

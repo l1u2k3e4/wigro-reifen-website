@@ -14,7 +14,7 @@ export default function KontaktHero() {
       {/* Hintergrundbild */}
       <div className="absolute inset-0">
         <img
-          src="/Logo Sonstige/Theke.webp"
+          src={`${import.meta.env.BASE_URL}Logo Sonstige/Theke.webp`}
           alt=""
           className="w-full h-full object-cover"
           loading="eager"
