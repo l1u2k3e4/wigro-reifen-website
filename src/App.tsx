@@ -23,7 +23,7 @@ function ScrollToTop() {
 export default function App() {
   return (
     <ContentOverridesProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/wigro-reifen-website">
         <ScrollToTop />
         <Suspense fallback={<PageLoader />}>
           <Routes>
