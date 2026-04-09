@@ -1,7 +1,7 @@
 // src/sections/LeistungenHero.tsx
 // Hero-Section der Leistungsseite — Bildbasiert mit Werkstatt-Foto
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import { fadeInUp } from '@/lib/animations'
 

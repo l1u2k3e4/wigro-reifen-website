@@ -1,7 +1,7 @@
 // src/components/WhatsAppButton.tsx
 // Floating WhatsApp-Button (unten rechts) — immer sichtbar
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { MessageCircle } from 'lucide-react'
 import { COPY } from '@/data/content'
 

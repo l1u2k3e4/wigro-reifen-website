@@ -1,7 +1,7 @@
 // src/sections/KontaktFormular.tsx
 // Kontaktformular + Öffnungszeiten nebeneinander
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Clock } from 'lucide-react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'

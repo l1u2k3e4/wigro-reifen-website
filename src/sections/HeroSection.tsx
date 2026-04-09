@@ -2,7 +2,7 @@
 // Hero-Section der Startseite — Vollbild-Hintergrundbild, Dual CTA, Trust-Signal
 
 import { useRef, useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Phone, MessageCircle, ChevronDown } from 'lucide-react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'

@@ -1,7 +1,7 @@
 // src/sections/GeschichteSection.tsx
 // Geschichte & Werte von WIGRO — Über Mario, Tradition, lokale Verwurzelung
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { fadeInUp } from '@/lib/animations'

@@ -2,7 +2,7 @@
 // Kurzvorstellung des Teams auf der Startseite — Bild + Text + Link zu /team
 
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'

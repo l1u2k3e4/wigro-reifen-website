@@ -1,7 +1,7 @@
 // src/sections/WerkstattSection.tsx
 // Bildergalerie der Werkstatt — 4 Fotos in Grid
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { staggerContainer, fadeInUp } from '@/lib/animations'

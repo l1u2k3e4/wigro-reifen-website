@@ -3,10 +3,9 @@
 // Blaues Theme, animierte Counter, Card-Layout mit stagger
 
 import { useRef, useEffect, useState, useMemo } from 'react'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { motion, useInView, type Variants } from 'motion/react'
 import { COPY } from '@/data/content'
 import { getIcon } from '@/lib/icons'
-import { isMobile, noAnim } from '@/lib/animations'
 import SectionHeading from '@/components/ui/SectionHeading'
 
 // ── Animated counter hook ──
@@ -84,24 +83,20 @@ function AnimatedStat({ zahl, label }: { zahl: string; label: string }) {
 }
 
 // ── Stagger container & card variants ──
-const containerVariants: Variants = isMobile
-  ? noAnim
-  : {
-      hidden: {},
-      visible: { transition: { staggerChildren: 0.15 } },
-    }
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } },
+}
 
-const cardVariants: Variants = isMobile
-  ? noAnim
-  : {
-      hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
-      visible: {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
-      },
-    }
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+  },
+}
 
 export default function WarumWIGRO() {
   return (

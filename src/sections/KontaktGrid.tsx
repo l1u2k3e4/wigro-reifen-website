@@ -1,7 +1,7 @@
 // src/sections/KontaktGrid.tsx
 // 4 Kontakt-Karten: Telefon, WhatsApp, E-Mail, Adresse
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import { getIcon } from '@/lib/icons'
 import { staggerContainer, fadeInUp } from '@/lib/animations'

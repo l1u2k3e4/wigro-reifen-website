@@ -1,7 +1,7 @@
 // src/sections/AnfahrtKontakt.tsx
 // Anfahrt auf Kontaktseite — 1:1 identisch mit Startseite-Version
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { MapPin, Phone, Clock, Mail, Navigation } from 'lucide-react'
 import { COPY } from '@/data/content'
 import SectionHeading from '@/components/ui/SectionHeading'

@@ -1,7 +1,7 @@
 // src/sections/FAQSection.tsx
 // FAQ Accordion mit 10 Fragen — Schema.org FAQPage Markup vorbereitet (wird in PROMPT_07 aktiviert)
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'
 import { mergeOverrides } from '@/lib/mergeOverrides'

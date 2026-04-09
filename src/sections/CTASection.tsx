@@ -1,7 +1,7 @@
 // src/sections/CTASection.tsx
 // Finaler Call-to-Action Block — dunkler Hintergrund, starke Headline, Dual CTA
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Phone, MessageCircle } from 'lucide-react'
 import { COPY } from '@/data/content'
 import GlowButton from '@/components/ui/GlowButton'

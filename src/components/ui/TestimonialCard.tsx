@@ -1,7 +1,7 @@
 // src/components/ui/TestimonialCard.tsx
 // Kundenbewertungs-Karte mit Sterne-Anzeige
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Quote } from 'lucide-react'
 import StarRating from '@/components/ui/StarRating'
 import { fadeInUp } from '@/lib/animations'

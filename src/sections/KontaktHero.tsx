@@ -1,7 +1,7 @@
 // src/sections/KontaktHero.tsx
 // Hero-Section der Kontakt-Seite — Bildbasiert mit Theke.webp
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { COPY } from '@/data/content'
 import { fadeInUp } from '@/lib/animations'
 

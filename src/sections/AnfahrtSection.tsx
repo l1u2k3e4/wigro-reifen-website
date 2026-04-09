@@ -1,7 +1,7 @@
 // src/sections/AnfahrtSection.tsx
 // Anfahrt auf Startseite — Zweispaltig: Links Kontaktinfos, Rechts Google Maps (direkt geladen)
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { MapPin, Phone, Clock, Mail, Navigation } from 'lucide-react'
 import { COPY } from '@/data/content'
 import { useModuleOverrides } from '@/hooks/useContentOverrides'

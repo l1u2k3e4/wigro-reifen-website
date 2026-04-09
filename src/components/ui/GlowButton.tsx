@@ -1,7 +1,7 @@
 // src/components/ui/GlowButton.tsx
 // Primärer CTA-Button mit Glow-Effekt — wird für alle CTAs verwendet
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import type { LucideIcon } from 'lucide-react'
 

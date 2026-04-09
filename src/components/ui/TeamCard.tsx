@@ -1,7 +1,7 @@
 // src/components/ui/TeamCard.tsx
 // Mitarbeiter-Karte mit Foto, Name und Rolle
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeInUp } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
