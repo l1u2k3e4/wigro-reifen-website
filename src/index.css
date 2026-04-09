@@ -141,8 +141,7 @@
   }
 
   /* GPU-Beschleunigung für animierte Elemente */
-  .animate-marquee,
-  .animate-scroll-up {
+  .animate-marquee {
     will-change: transform;
     backface-visibility: hidden;
   }
@@ -393,15 +392,9 @@
 }
 
 /* ================================================================
-   REDUCED MOTION — Alle Endlos-Animationen deaktivieren
+   MOBILE MENU — Konkurrierende Layer ausblenden
    ================================================================ */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+body.menu-open .sticky-cta {
+  transform: translateY(100%) !important;
+  transition: none !important;
 }

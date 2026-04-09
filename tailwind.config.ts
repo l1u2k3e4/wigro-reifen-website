@@ -166,28 +166,6 @@ const config: Config = {
           '0%':   { transform: 'translateX(0) translateZ(0)' },
           '100%': { transform: 'translateX(-33.333%) translateZ(0)' },
         },
-        // Mobile-Menü — slide-in von rechts
-        slideInRight: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateX(100%)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateX(0)',
-          },
-        },
-        // Mobile-Menü — slide-out nach rechts
-        slideOutRight: {
-          '0%': {
-            opacity: '1',
-            transform: 'translateX(0)',
-          },
-          '100%': {
-            opacity: '0',
-            transform: 'translateX(100%)',
-          },
-        },
         // Dezentes Fade-In — für Trust-Badges, Bewertungen
         fadeIn: {
           '0%':   { opacity: '0' },
@@ -220,9 +198,6 @@ const config: Config = {
         'pulse-glow':      'pulseGlow 2.5s ease-in-out 2',
         // Partner-Karussell
         'marquee':         'marquee 30s linear infinite',
-        // Menü-Animationen
-        'slide-in-right':  'slideInRight 0.28s cubic-bezier(0.22, 1, 0.36, 1) both',
-        'slide-out-right': 'slideOutRight 0.20s ease-in both',
         // Testimonials — vertikaler Scroll (Dauer via CSS Custom Property)
         'scroll-up':       'scrollUp var(--scroll-duration, 15s) linear infinite',
         // Hero Chevron-Bounce

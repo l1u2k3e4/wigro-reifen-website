@@ -1,7 +1,8 @@
 // src/components/ui/TestimonialsColumn.tsx
 // Vertical auto-scrolling testimonial column (infinite loop)
+// JS-basiert via requestAnimationFrame — immun gegen prefers-reduced-motion CSS-Override
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -59,11 +60,13 @@ function StarRatingInline({ rating }: { rating: number }) {
 export function TestimonialsColumn({
   className,
   testimonials,
-  duration = 10,
+  duration = 15,
 }: TestimonialsColumnProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(true)
 
+  // IntersectionObserver — Pause wenn nicht sichtbar
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -75,14 +78,37 @@ export function TestimonialsColumn({
     return () => observer.disconnect()
   }, [])
 
+  // JS-basierte Scroll-Animation via requestAnimationFrame
+  const animRef = useRef<number>(0)
+  const startRef = useRef<number | null>(null)
+
+  const animate = useCallback((timestamp: number) => {
+    const el = scrollRef.current
+    if (!el) return
+
+    if (!startRef.current) startRef.current = timestamp
+    const elapsed = timestamp - startRef.current
+    const totalHeight = el.scrollHeight / 2
+    const progress = (elapsed / (duration * 1000)) % 1
+
+    el.style.transform = `translateY(${-progress * totalHeight}px) translateZ(0)`
+    animRef.current = requestAnimationFrame(animate)
+  }, [duration])
+
+  useEffect(() => {
+    if (isVisible) {
+      animRef.current = requestAnimationFrame(animate)
+    } else {
+      cancelAnimationFrame(animRef.current)
+    }
+    return () => cancelAnimationFrame(animRef.current)
+  }, [isVisible, animate])
+
   return (
     <div ref={containerRef} className={cn('overflow-hidden', className)}>
       <div
-        className="flex flex-col gap-6 pb-6 animate-scroll-up will-change-transform"
-        style={{
-          '--scroll-duration': `${duration}s`,
-          animationPlayState: isVisible ? 'running' : 'paused',
-        } as React.CSSProperties}
+        ref={scrollRef}
+        className="flex flex-col gap-6 pb-6 will-change-transform"
       >
         {[...new Array(2)].map((_, index) => (
           <React.Fragment key={index}>

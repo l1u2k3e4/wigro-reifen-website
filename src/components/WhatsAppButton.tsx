@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
       href={COPY.kontaktdaten.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-24 right-4 z-modal lg:bottom-6 lg:right-6 group"
+      className="fixed bottom-24 right-4 z-nav lg:bottom-6 lg:right-6 group"
       aria-label="WhatsApp schreiben"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
