@@ -10,7 +10,7 @@ export default defineConfig({
     alias: { '@': resolve(__dirname, './src') },
   },
   build: {
-    target: 'esnext',
+    target: ['es2020', 'safari14', 'chrome87', 'firefox78'],
     sourcemap: false,
     cssMinify: true,
     rollupOptions: {
